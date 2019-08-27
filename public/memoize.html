@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <title>Notas Fiscais</title>
+</head>
+<body class="container">
+    
+    <script>
+
+        const memoizer = fn => {
+            const cache = new Map();
+
+            const newFn = (...args) => {
+                const key = JSON.stringify(args);
+
+                if(cache.has(key)){
+                    console.log(`Buscou do cache ${args}`)
+                    return cache.get(key)
+                }else{
+                    console.log(`Não encontrou no cache ${args}. Adicionando ao cache`)
+
+                    const result = fn(...args)
+
+                    cache.set(key,result)
+
+                    return result
+                }
+            }
+
+            newFn.clearCache = () => cache.clear();
+
+            return newFn;
+        }
+
+        const factorial =memoizer(n => {
+            if(n <= 1) return 1
+            return n * factorial(--n)
+        }
+        )
+
+        const sumTwoNumber = (num1, num2) => num1 + num2
+
+        const memoizedSumTwoNumbers = memoizer(sumTwoNumber);
+        const memoizedFactorial = memoizer(factorial);
+
+        console.log(factorial(5))
+        console.log(factorial(3))
+        console.log(factorial(5))
+
+
+
+    </script>
+</body>
+</html>

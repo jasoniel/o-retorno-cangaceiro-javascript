@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <title>Notas Fiscais</title>
+</head>
+<body class="container">
+    
+    <script>
+        
+        const trampoline = fn => {
+
+            while(typeof fn === 'function'){
+                fn = fn()
+            }
+            return fn;
+        }
+
+        const showCountDown = counter => {
+
+            if(counter < 0) return
+            return () => showCountDown(--counter);
+        }
+
+        const factorial = (acc, num) => {
+            if(num <= 1) return acc
+
+            return () => factorial(acc * num, --num)
+        }
+
+        console.log(trampoline(showCountDown(20000)))
+        console.log(trampoline(factorial(1,20000)))
+    </script>
+</body>
+</html>
